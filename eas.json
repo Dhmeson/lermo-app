@@ -1,0 +1,22 @@
+{
+  "cli": {
+    "version": ">= 10.1.1",
+    "appVersionSource": "local"
+  },
+  "build": {
+    "development": {
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "store"
+    },
+    "production": {
+      "distribution": "store",
+      "autoIncrement": true
+    }
+  },
+  "submit": {
+    "production": {
+    }
+  }
+}

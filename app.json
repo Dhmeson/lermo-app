@@ -19,7 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.dhmes.lermo"
     },
     "web": {
       "bundler": "metro",
@@ -31,6 +32,22 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "5636a47b-8c43-4b19-b881-2d2b8b35defb"
+      }
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 5000,
+      "checkAutomatically": "ON_LOAD",
+      "url": "https://u.expo.dev/5636a47b-8c43-4b19-b881-2d2b8b35defb"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }
