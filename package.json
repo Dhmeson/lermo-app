@@ -9,7 +9,12 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "clear-cache": "cache clean --force",
+    "build-google2": "npx eas build --platform android",
+    "build-apk": "npx eas build --profile preview",
+    "build-google": "npx eas build --profile production --platform android",
+    "add-version": "npx eas build:version:set"
   },
   "jest": {
     "preset": "jest-expo"
@@ -17,8 +22,10 @@
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
     "@react-navigation/native": "^6.0.2",
+    "axios": "^1.7.2",
     "expo": "~51.0.20",
     "expo-constants": "~16.0.2",
+    "expo-document-picker": "~12.0.2",
     "expo-font": "~12.0.8",
     "expo-linking": "~6.3.1",
     "expo-router": "~3.5.18",
@@ -29,6 +36,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.3",
+    "react-native-blob-util": "^0.19.9",
+    "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-reanimated": "~3.10.1",
     "react-native-safe-area-context": "4.10.1",
@@ -38,7 +47,9 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/jest": "^29.5.12",
+    "@types/pdf-parse": "^1.1.4",
     "@types/react": "~18.2.45",
+    "@types/react-native-pdf-lib": "^0.2.3",
     "@types/react-test-renderer": "^18.0.7",
     "jest": "^29.2.1",
     "jest-expo": "~51.0.3",

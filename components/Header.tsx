@@ -4,14 +4,26 @@ import { TabBarIcon } from './navigation/TabBarIcon'
 import { Colors } from '@/constants/Colors'
 import { useTheme } from '@/hooks/useTheme'
 import Settings from './Settings'
+import { StatusBar } from 'expo-status-bar'
+import { useSettings } from '@/hooks/useSettings'
 
 export default function Header() {
 	const { theme } = useTheme()
-	const [isOpenSettings, setIsOpenSettings] = useState(false)
+	const { isOpenSettings, openSettings, closeSettings } = useSettings()
 	const svgColor = { borderColor: Colors[theme].borderColor }
 	return (
 		<View style={style.conteiner}>
-			<TouchableOpacity style={[style.icon, svgColor]}>
+			<StatusBar
+				style={theme == 'light' ? 'light' : 'dark'}
+				backgroundColor={Colors[theme].borderColor}
+				translucent
+			/>
+			<TouchableOpacity
+				style={[style.icon, svgColor]}
+				onPress={() => {
+					closeSettings()
+				}}
+			>
 				<TabBarIcon
 					name='add'
 					size={30}
@@ -19,7 +31,7 @@ export default function Header() {
 			</TouchableOpacity>
 			<TouchableOpacity
 				style={[style.icon, svgColor]}
-				onPress={() => setIsOpenSettings(!isOpenSettings)}
+				onPress={openSettings}
 			>
 				<TabBarIcon
 					name='settings-outline'
@@ -36,7 +48,7 @@ const style = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		padding: 23,
-		paddingTop: 33
+		paddingTop: 60
 	},
 	icon: {
 		borderWidth: 1,

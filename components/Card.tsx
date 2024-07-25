@@ -34,7 +34,7 @@ export default function Card({ type = 'view', data = null }: Props) {
 					</View>
 				</>
 			) : (
-				<View style={styles.create}>
+				<View style={[styles.create]}>
 					<Text style={[textColor]}>Adicionar</Text>
 					<TabBarIcon
 						name='add'
@@ -50,10 +50,11 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		zIndex: -100,
 		borderRadius: 5,
-		width: '48%',
-		maxWidth: 200,
+		//width: '48%',
+		minWidth: 120,
 		height: 100,
 		padding: 10,
+		flexGrow: 1,
 		flexDirection: 'column',
 		justifyContent: 'space-between'
 	},

@@ -36,8 +36,9 @@ const styles = StyleSheet.create({
 	books: {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		justifyContent: 'space-between',
+		//justifyContent: 'space-between',
 		marginTop: 10,
+		//flexBasis: 1,
 		gap: 15
 	}
 })

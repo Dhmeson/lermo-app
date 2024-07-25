@@ -3,9 +3,11 @@ import { TouchableOpacity, Text, View, StyleSheet } from 'react-native'
 import { TabBarIcon } from './navigation/TabBarIcon'
 import { Colors } from '@/constants/Colors'
 import { useTheme } from '@/hooks/useTheme'
+import { useSettings } from '@/hooks/useSettings'
 
 export default function Settings() {
 	const { theme, toggleTheme } = useTheme()
+	const { changeSpeed, speed } = useSettings()
 	return (
 		<View style={style.modal}>
 			<TouchableOpacity
@@ -19,8 +21,11 @@ export default function Settings() {
 					color={Colors.light.icon}
 				/>
 			</TouchableOpacity>
-			<TouchableOpacity style={style.modalButtons}>
-				<Text>Speed</Text>
+			<TouchableOpacity
+				style={style.modalButtons}
+				onPress={changeSpeed}
+			>
+				<Text>Speed {speed == 0 ? '' : `${speed + 'x'}`}</Text>
 				<TabBarIcon
 					name='speedometer'
 					size={24}
@@ -42,12 +47,12 @@ const style = StyleSheet.create({
 	modal: {
 		position: 'absolute',
 		right: 23,
-		top: 100,
+		top: 130,
 		width: '50%',
 		// backgroundColor: Colors.dark.background,
 		//minHeight: 200,
 		gap: 10,
-		zIndex: 10
+		zIndex: 100
 	},
 	modalButtons: {
 		backgroundColor: Colors.light.background,
