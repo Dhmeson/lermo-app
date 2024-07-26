@@ -14,11 +14,9 @@
       "distribution": "store",
       "autoIncrement": true,
        "android": {
-        "image": "latest"
-      },
-      "ios": {
-        "image": "latest"
+        "image": "registry=http://npm-cache-service.worker-infra-production.svc.cluster.local:4873"
       }
+    
     }
   },
   "submit": {
