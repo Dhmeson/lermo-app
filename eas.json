@@ -14,7 +14,8 @@
       "distribution": "store",
       "autoIncrement": true,
        "android": {
-        "image": "registry=http://npm-cache-service.worker-infra-production.svc.cluster.local:4873"
+        "image": "ubuntu-22.04-jdk-17-ndk-r25b"
+
       }
     
     }
