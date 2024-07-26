@@ -14,8 +14,13 @@
       "distribution": "store",
       "autoIncrement": true,
        "android": {
-        "image": "ubuntu-22.04-jdk-17-ndk-r25b"
-
+   "image": "ubuntu-22.04-jdk-17-ndk-r26b",
+        "env": {
+          "NPM_CONFIG_REGISTRY": "http://npm-cache-service.worker-infra-production.svc.cluster.local:4873"
+        },
+        "hooks": {
+          "prebuild": "echo 'registry=http://npm-cache-service.worker-infra-production.svc.cluster.local:4873' > ~/.npmrc"
+        }
       }
     
     }
