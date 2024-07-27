@@ -1,20 +1,26 @@
 import { Colors } from '@/constants/Colors'
 import { useTheme } from '@/hooks/useTheme'
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Card from './Card'
 import { BOOKS } from '@/constants/Books'
+import { BookRepository } from '@/app/class/BookRepository'
+import { AsyncStorageService } from '@/app/class/AsyncStorageService'
+import { Book } from '@/app/class/Book'
 
 export default function RecentsBook() {
 	const { theme } = useTheme()
+	const storage = new AsyncStorageService()
+	const bookRepository = new BookRepository(storage)
+	const [books,setBook] = useState<Book[]>([])
 	return (
 		<View style={styles.c}>
 			<Text style={[{ color: Colors[theme].text }]}>Recents</Text>
 			<View style={styles.books}>
-				{BOOKS.map((book) => {
+				{books.map((book) => {
 					return (
 						<Card
-							key={book.title}
+							key={book.id}
 							data={book}
 						/>
 					)

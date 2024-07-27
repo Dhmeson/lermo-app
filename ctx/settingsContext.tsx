@@ -22,6 +22,10 @@ export const SettingsProvider: React.FC<{ children: ReactNode }> = ({
 		setIsOpenSettings(false)
 	}
 	const openSettings = () => {
+		if(isOpenSettings){
+			setIsOpenSettings(false)
+			return
+		}
 		setIsOpenSettings(true)
 	}
 	const changeSpeed = () => {

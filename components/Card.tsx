@@ -3,8 +3,8 @@ import { useTheme } from '@/hooks/useTheme'
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { TabBarIcon } from './navigation/TabBarIcon'
-import { Book } from '@/constants/Books'
 import { useRouter } from 'expo-router'
+import { Book } from '@/app/class/Book'
 interface Props {
 	type?: 'create' | 'view'
 	data?: Book | null
@@ -26,12 +26,12 @@ export default function Card({ type = 'view', data = null }: Props) {
 						{data && data.title}
 					</Text>
 
-					<View style={styles.footer}>
+					{/* <View style={styles.footer}>
 						<Text style={[textColor]}>
 							Page {data && data.totalPages}
 						</Text>
 						<Text style={[textColor]}>10%</Text>
-					</View>
+					</View> */}
 				</>
 			) : (
 				<View style={[styles.create]}>
