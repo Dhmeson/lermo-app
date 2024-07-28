@@ -1,0 +1,52 @@
+import BottomSheet from 'react-native-simple-bottom-sheet';
+
+function App() {
+  return (
+    <View style={{flex: 1}}>
+      <View>Your content</View>
+      <BottomSheet isOpen>
+        // The component to render inside the panel
+        <View />
+      </BottomSheet>
+    </View>
+  );
+}
+
+function App() {
+  return (
+    <View style={{flex: 1}}>
+      <View>Your content</View>
+      <BottomSheet isOpen>
+        {(onScrollEndDrag) => (
+          <ScrollView onScrollEndDrag={onScrollEndDrag}>
+            {[...Array(10)].map((_, index) => (
+              <View key={`${index}`} style={styles.listItem}>
+                <Text>{`List Item ${index + 1}`}</Text>
+              </View>
+            ))}
+          </ScrollView>
+        )}
+      </BottomSheet>
+    </View>
+  );
+}
+
+
+
+function App() {
+  const panelRef = useRef(null);
+
+  return (
+    <View style={{flex: 1}}>
+      <View>Your content</View>
+      <TouchableOpacity onPress={() => panelRef.current.togglePanel()}>
+        <Text>Toggle</Text>
+      </TouchableOpacity>
+      <BottomSheet ref={ref => panelRef.current = ref}>
+        <Text style={{paddingVertical: 20}}>
+          Some random content
+        </Text>
+      </BottomSheet>
+    </View>
+  );
+}
