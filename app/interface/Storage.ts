@@ -5,4 +5,6 @@ export interface Storage{
     get(key: string): Promise<Book>;
     remove(key: string): Promise<void>;
     update(key: string,value:any): Promise<void>;
+    getAll(key: string): Promise<Book[]>;
+
 }

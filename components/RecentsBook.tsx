@@ -1,33 +1,34 @@
 import { Colors } from '@/constants/Colors'
 import { useTheme } from '@/hooks/useTheme'
-import React, { useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import Card from './Card'
-import { BOOKS } from '@/constants/Books'
-import { BookRepository } from '@/app/class/BookRepository'
-import { AsyncStorageService } from '@/app/class/AsyncStorageService'
-import { Book } from '@/app/class/Book'
+
+import { useBooks } from '@/ctx/booksContext'
+import { GenerateId } from '@/app/class/GenerateId'
 
 export default function RecentsBook() {
 	const { theme } = useTheme()
-	const storage = new AsyncStorageService()
-	const bookRepository = new BookRepository(storage)
-	const [books,setBook] = useState<Book[]>([])
+    const { books, getAllBooks } = useBooks();
+	useEffect(()=>{
+		getAllBooks()   
+	},[])
+	
 	return (
 		<View style={styles.c}>
 			<Text style={[{ color: Colors[theme].text }]}>Recents</Text>
-			<View style={styles.books}>
-				{books.map((book) => {
+			<ScrollView  contentContainerStyle={styles.books}>
+				{books?.length>0 && books?.map((book) => {
 					return (
 						<Card
-							key={book.id}
+							key={GenerateId.getId()}
 							data={book}
 						/>
 					)
 				})}
 
 				<Card type='create' />
-			</View>
+			</ScrollView>
 		</View>
 	)
 }
@@ -45,6 +46,6 @@ const styles = StyleSheet.create({
 		//justifyContent: 'space-between',
 		marginTop: 10,
 		//flexBasis: 1,
-		gap: 15
+		gap: 15,paddingVertical:20
 	}
 })

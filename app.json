@@ -2,7 +2,7 @@
   "expo": {
     "name": "lermo",
     "slug": "lermo",
-    "version": "1.0.1",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -20,7 +20,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.dhmes.lermo"
+      "package": "com.dhmes.lermo",
+      "versionCode": 5
     },
     "web": {
       "bundler": "metro",

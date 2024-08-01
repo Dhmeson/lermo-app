@@ -5,8 +5,10 @@ import * as SplashScreen from 'expo-splash-screen'
 import { useEffect } from 'react'
 // import { StatusBar } from 'react-native'
 import 'react-native-reanimated'
-import { StatusBar } from 'expo-status-bar'
 import { SettingsProvider } from '@/ctx/settingsContext'
+import { BookProvider } from '@/ctx/booksContext'
+import { FontProvider } from '@/ctx/fontsContext'
+
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -28,12 +30,19 @@ export default function RootLayout() {
 
 	return (
 		<ThemeProvider>
+			
+			<FontProvider>
+			<BookProvider>
 			<SettingsProvider>
+				
 				<Stack screenOptions={{ headerShown: false }}>
 					<Stack.Screen name='+not-found' />
 					{/* <Stack.Screen name='index' options={{back}} /> */}
 				</Stack>
 			</SettingsProvider>
+			</BookProvider>
+			</FontProvider>
+			
 		</ThemeProvider>
 	)
 }

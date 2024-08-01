@@ -2,26 +2,43 @@ import { Container } from '@/components/Conteiner'
 import { TabBarIcon } from '@/components/navigation/TabBarIcon'
 import { Colors } from '@/constants/Colors'
 import { useTheme } from '@/hooks/useTheme'
-import React, { useState } from 'react'
-import { View, Text,TextInput,StyleSheet, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, Text,TextInput,StyleSheet, TouchableOpacity, ToastAndroid } from 'react-native'
 import * as Clipboard from 'expo-clipboard';
-import { AsyncStorageService } from './class/AsyncStorageService'
-import { BookRepository } from './class/BookRepository'
+
 import { Book } from './class/Book'
-import { useRouter } from 'expo-router'
-import { GenerateId } from './class/GenerateId'
+import {  useRoute } from '@react-navigation/native'
 import { useBooks } from '@/ctx/booksContext'
 import { useSettings } from '@/hooks/useSettings'
+import { BookRouteProp } from '@/types/routers'
+import { ActionResultModal } from '@/components/ActionResultModal'
 import useKeyboardOpen from '@/hooks/usekeyboard'
-export default function Index() {
+export default function Edit() {
    
 	const { theme } = useTheme()
     const {closeSettings}=useSettings()
+    const {books,editBook}=useBooks()
+
     const style_ = { borderColor: Colors[theme].text ,color:Colors[theme].text }
     const [content, setContent] = useState('')  
     const [title, setTitle] = useState('') 
-    const { navigate } = useRouter()
-    const {saveBook}=useBooks()
+    const [sucessModal, setSucessModal] = useState(false)
+  
+    
+    const {params} = useRoute<BookRouteProp>()
+
+
+    const book = books.find(book => book.id===params.bookId)
+    useEffect(()=>{
+        if(book){
+            setTitle(book.title)
+            const content = book.content.reduce((prev, currentValue) => prev +" " +currentValue, '');
+            setContent(content)
+        }
+        
+     
+    },[])
+
 
 
     const onPaste = async () => {
@@ -31,22 +48,23 @@ export default function Index() {
         } catch (error) {
         }
     }
-    const save = async () => {
+   
+    const edit = async () => {
         if(title && content && content.length){
-            const book = new Book(GenerateId.getId(),title,content)
-            await saveBook(book)
-            setContent('')
-            navigate({ pathname: '/' })
+            const book_ = new Book(book?.id??"",title,content)
+            editBook(book_)
+            setSucessModal(true)
         }
        
     }
     useKeyboardOpen(closeSettings)
+
 	return (
 		<Container>
-			<View style={styles.container} onPointerDown={()=>closeSettings()} >
+			<View style={styles.container} onPointerDown={()=>closeSettings()}>
                 <View>
                     <Text style={[styles.text,style_]}>Titulo</Text>
-                    <TextInput onFocus={()=>closeSettings()} style={[styles.textInput,style_]} placeholder='Digite um titulo' onChangeText={(t)=>{setTitle(t)}}/>
+                    <TextInput value={title} onFocus={()=>closeSettings()} style={[styles.textInput,style_]} placeholder='Digite um titulo' onChangeText={(t)=>{setTitle(t)}}/>
                 </View>
                 <View style={{flex:1,marginTop:10}}>
                     <View style={styles.copy}>
@@ -54,22 +72,20 @@ export default function Index() {
                         <TabBarIcon name='copy' onPress={onPaste}/>
 
                     </View>
-                    <TextInput
-                            
+                    <TextInput 
                             onFocus={()=>closeSettings()}
                             value={content}  // Configurando o valor do TextInput com o estado
                             onChangeText={(t)=>{setContent(t)}}
-                            multiline
-                            
-                            style={[styles.textArea,style_]} placeholder='Digite um  conteudo'>
+                            multiline style={[styles.textArea,style_]} placeholder='Digite um  conteudo'>
 
                     </TextInput>
                 </View>
-                <TouchableOpacity onPress={save} style={[styles.btn]}>
-                    <Text style={[styles.text,style_]}>Salvar</Text>
+                <TouchableOpacity onPress={edit} style={[styles.btn]}>
+                    <Text style={[styles.text,style_]}>Editar</Text>
                 </TouchableOpacity>
                 
             </View>
+            <ActionResultModal onClose={()=>setSucessModal(false)} text='Editado com sucesso!' visible={sucessModal}/>
 		</Container>
 	)
 }
@@ -99,9 +115,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginBottom: 10,
         height: '90%',
-        textAlignVertical:'top',
-        
-        flexWrap:'wrap'
+        textAlignVertical:'top'
     },
     copy:{
         flexDirection: 'row',

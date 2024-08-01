@@ -3,14 +3,24 @@ import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import { TabBarIcon } from './navigation/TabBarIcon'
 import { Colors } from '@/constants/Colors'
 import { useTheme } from '@/hooks/useTheme'
-import Settings from './Settings'
 import { StatusBar } from 'expo-status-bar'
 import { useSettings } from '@/hooks/useSettings'
+import { usePathname, useRouter } from 'expo-router'
 
 export default function Header() {
 	const { theme } = useTheme()
-	const { isOpenSettings, openSettings, closeSettings } = useSettings()
+	const {  openSettings, closeSettings } = useSettings()
 	const svgColor = { borderColor: Colors[theme].borderColor }
+	const pathname=usePathname()
+	const { navigate } = useRouter()
+	function onPress(){
+		closeSettings()
+		if(pathname=='/'){
+			return navigate('/add')
+		}
+		return navigate('/')
+
+	}
 	return (
 		<View style={style.conteiner}>
 			<StatusBar
@@ -21,11 +31,11 @@ export default function Header() {
 			<TouchableOpacity
 				style={[style.icon, svgColor]}
 				onPress={() => {
-					closeSettings()
+					onPress()
 				}}
 			>
 				<TabBarIcon
-					name='add'
+					name={pathname=='/'?'add':'arrow-back'}
 					size={30}
 				/>
 			</TouchableOpacity>
@@ -38,7 +48,6 @@ export default function Header() {
 					size={28}
 				/>
 			</TouchableOpacity>
-			{isOpenSettings && <Settings />}
 		</View>
 	)
 }

@@ -1,11 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Storage } from '../interface/Storage';
+import { Book } from './Book';
 
 
 export class AsyncStorageService implements Storage {
    
-    async save(key: string, value: any): Promise<void> {
+    async save(key: string, value: Book[]): Promise<void> {
         try {
+           
             await AsyncStorage.setItem(key, JSON.stringify(value));
         } catch (error) {
             console.error('Error saving data', error);
@@ -19,6 +21,15 @@ export class AsyncStorageService implements Storage {
         } catch (error) {
             console.error('Error getting data', error);
             return null;
+        }
+    }
+    async getAll(key: string): Promise<Book[]> {
+        try {
+            const value = await AsyncStorage.getItem(key);
+            return value != null ? JSON.parse(value) : [];
+        } catch (error) {
+            console.error('Error getting data', error);
+            return [];
         }
     }
 

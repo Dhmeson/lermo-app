@@ -50,3 +50,9 @@ function App() {
     </View>
   );
 }
+
+
+///mudar a fonte pra 3 tamanhas
+//definir opcoes da fonte pela quantidade de letras
+//deletar book
+add scroll no menu inicial

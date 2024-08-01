@@ -11,12 +11,22 @@ export class BookRepository {
         
     }
     async saveBook(book:Book): Promise<void>{
-        this.storage.save(book.id, book);
+        const allBooks=await this.getAllBooks()
+       await this.storage.save("Books", [...allBooks,book]);
+    
+
+    }
+    async updateBook(books:Book[]): Promise<void>{
+        await this.storage.save("Books", books);
+
+
     }
     async deleteBook(id:string): Promise<void>{
         this.storage.remove(id);
     }
     async getAllBooks(): Promise<Book[]>{
-        return Object.values(this.storage).map(book=>JSON.parse(book) as Book);
+        return  await  this.storage.getAll("Books")
+      
+        // return Object.values(this.storage).map(book=>JSON.parse(book) as Book);
     }
 }
