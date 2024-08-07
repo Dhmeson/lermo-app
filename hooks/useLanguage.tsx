@@ -1,27 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { useState, useEffect } from 'react';
 import * as Localization from 'expo-localization';
-import languages from './languages.json'; // Assumindo que seu arquivo JSON está no mesmo diretório
+import languages from '../languages.json'; // Assumindo que seu arquivo JSON está no mesmo diretório
 
 // Definindo o tipo para os textos
 interface LanguageTexts {
-  welcome: string;
-  greeting: string;
+ 
+  Recentes: string,
+  Cancelar: string,
+  Confirmar: string,
+  Titulo: string,
+  Digite_um_titulo: string,
+  Editar: string,
+  Editado_com_sucesso: string,
+  Salvar: string,
+  Digite_um_conteudo: string,
+  Adicionar: string,
+  Conteudo: string,
+  Excluir: string,
+  Deseja_remover:string,
+  Velocidade: string,
+  Fonte: string
 }
 
-// Definindo o tipo para o JSON de idiomas
-interface Languages {
-  en: LanguageTexts;
-  pt: LanguageTexts;
-  [key: string]: LanguageTexts; // Para permitir outros idiomas dinamicamente
-}
 
-const useLanguage: React.FC = () => {
-  const [language, setLanguage] = useState<LanguageTexts>(languages.en);
+type LanguageType = "en"| "pt"| "de"| "it"| "es"|"fr"|"js"
+const lenguagesAcepts=["en", "pt", "de", "it", "es","fr","js"]
+export function useLanguage(){
+  const [language, setLanguage] = useState<LanguageTexts>(languages.pt);
 
   useEffect(() => {
-    const deviceLanguage = Localization.locale.split('-')[0]; // Pegando a parte do idioma da localidade (ex: 'en' de 'en-US')
-    setLanguage((languages as Languages)[deviceLanguage] || languages.en); // Define o idioma ou fallback para inglês
+    console.log(Localization.getLocales()[0].languageCode)
+    if(lenguagesAcepts.includes(Localization.getLocales()[0].languageCode??"pt")){
+      const deviceLanguage:LanguageType = (Localization.getLocales()[0].languageCode??'pt') as LanguageType
+      console.log(deviceLanguage)
+      //@ts-ignore
+      setLanguage(languages[deviceLanguage] as LanguageTexts)
+    }
+    
+
   }, []);
 
   return{
@@ -29,4 +45,4 @@ const useLanguage: React.FC = () => {
   }
 };
 
-export default App;
+

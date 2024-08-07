@@ -37,7 +37,6 @@ export default function RootLayout() {
 				
 				<Stack screenOptions={{ headerShown: false }}>
 					<Stack.Screen name='+not-found' />
-					{/* <Stack.Screen name='index' options={{back}} /> */}
 				</Stack>
 			</SettingsProvider>
 			</BookProvider>

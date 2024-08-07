@@ -6,8 +6,10 @@ import Card from './Card'
 
 import { useBooks } from '@/ctx/booksContext'
 import { GenerateId } from '@/app/class/GenerateId'
+import { useLanguage } from '@/hooks/useLanguage'
 
 export default function RecentsBook() {
+	const {language}=useLanguage()
 	const { theme } = useTheme()
     const { books, getAllBooks } = useBooks();
 	useEffect(()=>{
@@ -16,7 +18,7 @@ export default function RecentsBook() {
 	
 	return (
 		<View style={styles.c}>
-			<Text style={[{ color: Colors[theme].text }]}>Recents</Text>
+			<Text style={[{ color: Colors[theme].text }]}>{language.Recentes}</Text>
 			<ScrollView  contentContainerStyle={styles.books}>
 				{books?.length>0 && books?.map((book) => {
 					return (
@@ -43,9 +45,7 @@ const styles = StyleSheet.create({
 	books: {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		//justifyContent: 'space-between',
 		marginTop: 10,
-		//flexBasis: 1,
 		gap: 15,paddingVertical:20
 	}
 })

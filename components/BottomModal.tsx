@@ -1,6 +1,6 @@
 import { useTheme } from '@/hooks/useTheme'
-import React, { ReactNode } from 'react'
-import { ScrollView, View,Text } from 'react-native'
+import React from 'react'
+import { ScrollView} from 'react-native'
 import { useSettings } from '@/hooks/useSettings'
 import BottomSheet from 'react-native-simple-bottom-sheet';
 import SettingsModal from './SettingsModal';

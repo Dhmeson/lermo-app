@@ -13,8 +13,10 @@ import { GenerateId } from './class/GenerateId'
 import { useBooks } from '@/ctx/booksContext'
 import { useSettings } from '@/hooks/useSettings'
 import useKeyboardOpen from '@/hooks/usekeyboard'
+import { useLanguage } from '@/hooks/useLanguage'
 export default function Index() {
-   
+    const {language}=useLanguage()
+
 	const { theme } = useTheme()
     const {closeSettings}=useSettings()
     const style_ = { borderColor: Colors[theme].text ,color:Colors[theme].text }
@@ -45,12 +47,12 @@ export default function Index() {
 		<Container>
 			<View style={styles.container} onPointerDown={()=>closeSettings()} >
                 <View>
-                    <Text style={[styles.text,style_]}>Titulo</Text>
-                    <TextInput onFocus={()=>closeSettings()} style={[styles.textInput,style_]} placeholder='Digite um titulo' onChangeText={(t)=>{setTitle(t)}}/>
+                    <Text style={[styles.text,style_]}>{language.Titulo}</Text>
+                    <TextInput onFocus={()=>closeSettings()} style={[styles.textInput,style_]} placeholder={language.Digite_um_titulo} onChangeText={(t)=>{setTitle(t)}}/>
                 </View>
                 <View style={{flex:1,marginTop:10}}>
                     <View style={styles.copy}>
-                        <Text style={[styles.text,style_]}>Conteudo</Text>
+                        <Text style={[styles.text,style_]}>{language.Conteudo}</Text>
                         <TabBarIcon name='copy' onPress={onPaste}/>
 
                     </View>
@@ -61,12 +63,12 @@ export default function Index() {
                             onChangeText={(t)=>{setContent(t)}}
                             multiline
                             
-                            style={[styles.textArea,style_]} placeholder='Digite um  conteudo'>
+                            style={[styles.textArea,style_]} placeholder={language.Digite_um_conteudo}>
 
                     </TextInput>
                 </View>
                 <TouchableOpacity onPress={save} style={[styles.btn]}>
-                    <Text style={[styles.text,style_]}>Salvar</Text>
+                    <Text style={[styles.text,style_]}>{language.Salvar}</Text>
                 </TouchableOpacity>
                 
             </View>

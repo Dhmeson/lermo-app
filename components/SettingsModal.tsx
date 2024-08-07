@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TouchableOpacity, Text, View, StyleSheet, AlertButton, AlertOptions } from 'react-native'
+import { TouchableOpacity, Text, View, StyleSheet} from 'react-native'
 import { TabBarIcon } from './navigation/TabBarIcon'
 import { Colors } from '@/constants/Colors'
 import { useTheme } from '@/hooks/useTheme'
@@ -12,9 +12,11 @@ import { useFont } from '@/ctx/fontsContext'
 import { useGetBook } from '@/hooks/useGetBook'
 import { CustomModal } from './CustomModal'
 import { useBooks } from '@/ctx/booksContext'
+import { useLanguage } from '@/hooks/useLanguage'
 
 export default function SettingsModal() {
 	const {  toggleTheme } = useTheme()
+	const {language}=useLanguage()
 	
 	const { changeSpeed, speed ,closeSettings} = useSettings()
 	const path=usePathname()
@@ -33,7 +35,30 @@ export default function SettingsModal() {
 	
 	return (
 		<View style={style.modal}>
-			<CustomModal onClose={()=>setIsOpenDeleteModal(false)} visible={isOpenDeleteModal} onConfirm={()=>removeBook()} text='Deseja apagar text?'/>
+			<CustomModal onClose={()=>setIsOpenDeleteModal(false)} visible={isOpenDeleteModal} onConfirm={()=>removeBook()} text={language.Deseja_remover}/>
+			{
+			path!='/'  && <>
+			
+			<TouchableOpacity style={style.modalButtons} onPress={()=>{
+				closeSettings()
+				navigate({ pathname: '/edit', params: {bookId:params.bookId} })
+			}}>
+				<Text>{language.Editar}</Text>
+				<TabBarIcon
+					name='pencil-outline'
+					size={24}
+					color={Colors.light.icon}
+				/>
+			</TouchableOpacity>
+			<TouchableOpacity style={style.modalButtons} onPress={()=>{setIsOpenDeleteModal(true)}}>
+				<Text>{language.Excluir}</Text>
+				<TabBarIcon
+					name='trash'
+					size={24}
+					color={Colors.light.icon}
+				/>
+			</TouchableOpacity></>
+		}
 			<TouchableOpacity
 				style={style.modalButtons}
 				onPress={()=>toggleTheme()}
@@ -49,59 +74,27 @@ export default function SettingsModal() {
 				style={style.modalButtons}
 				onPress={changeSpeed}
 			>
-				<Text>Speed {speed == 0 ? '' : `${speed + 'x'}`}</Text>
+				<Text>{language.Velocidade} {speed == 0 ? '' : `${speed + 'x'}`}</Text>
 				<TabBarIcon
 					name='speedometer'
 					size={24}
 					color={Colors.light.icon}
 				/>
 			</TouchableOpacity>
-			
-
-		{
-			path=='/book' || path=='/edit' && <>
 			<TouchableOpacity
 				style={style.modalButtons}
 				onPress={()=>changeFontSize(book?.content??[])}
 			>
-				<Text>Font {getFontDescription()}</Text>
+				<Text>{language.Fonte} {getFontDescription()}</Text>
 				<TabBarIcon
 					name='text'
 					size={24}
 					color={Colors.light.icon}
 				/>
 			</TouchableOpacity>
-			<TouchableOpacity style={style.modalButtons} onPress={()=>{
-				closeSettings()
-				navigate({ pathname: '/edit', params: {bookId:params.bookId} })
-			}}>
-				<Text>Editar</Text>
-				<TabBarIcon
-					name='pencil-outline'
-					size={24}
-					color={Colors.light.icon}
-				/>
-			</TouchableOpacity>
-			<TouchableOpacity style={style.modalButtons} onPress={()=>{setIsOpenDeleteModal(true)}}>
-				<Text>Delete</Text>
-				<TabBarIcon
-					name='trash'
-					size={24}
-					color={Colors.light.icon}
-				/>
-			</TouchableOpacity></>
-		}
-		{
-			 path!='/book' && 	
-			<TouchableOpacity style={style.modalButtons} onPress={()=>{setIsOpenDeleteModal(true)}}>
-			<Text>Creditos</Text>
-			<TabBarIcon
-				name='information-circle'
-				size={24}
-				color={Colors.light.icon}
-			/>
-		</TouchableOpacity>
-		}
+
+	
+		
 			
 		</View>
 	)

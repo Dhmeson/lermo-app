@@ -18,7 +18,7 @@ const speedToInterval = (speed_: number) => {
 }
 
 const useWordManagerActions = ({ book }: UseWordIntervalProps) => {
-    const [_, setCurrentWordIndex] = useState(0);
+    const [index, setCurrentWordIndex] = useState(0);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
     const [isRunning, setIsRunning] = useState(true)
     const { speed,closeSettings } = useSettings() //0,1,2,3
@@ -63,7 +63,29 @@ const useWordManagerActions = ({ book }: UseWordIntervalProps) => {
 		}
 	}
 
-    return { start, pause ,word,isRunning,onTouchScreen};
+      // Função para aumentar o índice
+      const nextWord = () => {
+        if (book) {
+            setCurrentWordIndex((prevIndex) => {
+                const newIndex = (prevIndex + 1) % book.content.length;
+                setWord(book?.content[newIndex]);
+                return newIndex;
+            });
+        }
+    };
+
+    // Função para diminuir o índice
+    const prevWord = () => {
+        if (book) {
+            setCurrentWordIndex((prevIndex) => {
+                const newIndex = (prevIndex - 1 + book.content.length) % book.content.length;
+                setWord(book?.content[newIndex]);
+                return newIndex;
+            });
+        }
+    };
+
+    return { start, pause ,word,isRunning,onTouchScreen,prevWord,nextWord};
 }
 
 export default useWordManagerActions;

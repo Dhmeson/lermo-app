@@ -13,8 +13,9 @@ import { useSettings } from '@/hooks/useSettings'
 import { BookRouteProp } from '@/types/routers'
 import { ActionResultModal } from '@/components/ActionResultModal'
 import useKeyboardOpen from '@/hooks/usekeyboard'
+import { useLanguage } from '@/hooks/useLanguage'
 export default function Edit() {
-   
+   const {language}=useLanguage()
 	const { theme } = useTheme()
     const {closeSettings}=useSettings()
     const {books,editBook}=useBooks()
@@ -63,36 +64,35 @@ export default function Edit() {
 		<Container>
 			<View style={styles.container} onPointerDown={()=>closeSettings()}>
                 <View>
-                    <Text style={[styles.text,style_]}>Titulo</Text>
-                    <TextInput value={title} onFocus={()=>closeSettings()} style={[styles.textInput,style_]} placeholder='Digite um titulo' onChangeText={(t)=>{setTitle(t)}}/>
+                    <Text style={[styles.text,style_]}>{language.Titulo}</Text>
+                    <TextInput value={title} onFocus={()=>closeSettings()} style={[styles.textInput,style_]} placeholder={language.Digite_um_titulo} onChangeText={(t)=>{setTitle(t)}}/>
                 </View>
                 <View style={{flex:1,marginTop:10}}>
                     <View style={styles.copy}>
-                        <Text style={[styles.text,style_]}>Conteudo</Text>
+                        <Text style={[styles.text,style_]}>{language.Conteudo}</Text>
                         <TabBarIcon name='copy' onPress={onPaste}/>
 
                     </View>
                     <TextInput 
                             onFocus={()=>closeSettings()}
-                            value={content}  // Configurando o valor do TextInput com o estado
+                            value={content}  
                             onChangeText={(t)=>{setContent(t)}}
-                            multiline style={[styles.textArea,style_]} placeholder='Digite um  conteudo'>
+                            multiline style={[styles.textArea,style_]} placeholder={language.Digite_um_conteudo}>
 
                     </TextInput>
                 </View>
                 <TouchableOpacity onPress={edit} style={[styles.btn]}>
-                    <Text style={[styles.text,style_]}>Editar</Text>
+                    <Text style={[styles.text,style_]}>{language.Editar}</Text>
                 </TouchableOpacity>
                 
             </View>
-            <ActionResultModal onClose={()=>setSucessModal(false)} text='Editado com sucesso!' visible={sucessModal}/>
+            <ActionResultModal onClose={()=>setSucessModal(false)} text={language.Editado_com_sucesso} visible={sucessModal}/>
 		</Container>
 	)
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        //backgroundColor: Colors.dark.background,
         paddingHorizontal: 20,
         paddingVertical: 10,
         zIndex: -10

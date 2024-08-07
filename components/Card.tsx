@@ -7,11 +7,13 @@ import { TabBarIcon } from './navigation/TabBarIcon'
 import { useRouter } from 'expo-router'
 import { Book } from '@/app/class/Book'
 import { RemoveBook } from './RemoveBook'
+import { useLanguage } from '@/hooks/useLanguage'
 interface Props {
 	type?: 'create' | 'view'
 	data?: Book | null
 }
 export default function Card({ type = 'view', data = null }: Props) {
+	const {language}=useLanguage()
 	const { theme } = useTheme()
 	const { navigate } = useRouter()
 	const textColor = { color: Colors[theme].text }
@@ -42,7 +44,7 @@ export default function Card({ type = 'view', data = null }: Props) {
 				</View>
 			) : (
 				<View style={[styles.create]}>
-					<Text style={[textColor]}>Adicionar</Text>
+					<Text style={[textColor]}>{language.Adicionar}</Text>
 					<TabBarIcon
 						name='add'
 						size={50}

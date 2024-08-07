@@ -1,7 +1,7 @@
 {
   "name": "lermo",
   "main": "expo-router/entry",
-  "version": "1.0.3",
+  "version": "1.0.7",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
@@ -10,13 +10,13 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint",
-    "dev":"npx eas build --profile development --platform android",
+    "dev": "npx eas build --profile development --platform android",
     "clear-cache": "cache clean --force",
     "build-google2": "npx eas build --platform android",
     "build-apk": "npx eas build --profile preview",
     "build-google": "npx eas build --profile production --platform android",
     "add-version": "npx eas build:version:set",
-    "update-branch": "npx eas update --branch dev"
+    "update-branch": "npx eas update --branch main"
   },
   "jest": {
     "preset": "jest-expo"
@@ -49,7 +49,8 @@
     "react-native-screens": "3.31.1",
     "react-native-simple-bottom-sheet": "^1.0.4",
     "react-native-web": "~0.19.10",
-    "expo-dev-client": "~4.0.21"
+    "expo-dev-client": "~4.0.21",
+    "expo-localization": "~15.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -27,7 +27,7 @@ export default function BookScreen() {
 
 	const {books}=useBooks()
 	const book = books.find(book => book.id===params.bookId)
-	const {pause,start,word,onTouchScreen}=useWordManagerActions({book})
+	const {pause,start,word,onTouchScreen,isRunning,nextWord,prevWord}=useWordManagerActions({book})
 
 	
 	return (
@@ -37,7 +37,7 @@ export default function BookScreen() {
 				onTouchStart={onTouchScreen}
 			>	
 				<WordDisplay  word={word}/>
-				<ControlButtons onPause={pause} onPlay={start}/>
+				<ControlButtons onPause={pause} onPlay={start} isRunning={isRunning} nextWord={nextWord} prevWord={prevWord}/>
 			</View>
 			
 		</Container>

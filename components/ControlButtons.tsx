@@ -6,17 +6,28 @@ import { useStyles } from '@/hooks/useStyles'
 interface ControlButtonsProps {
     onPlay: () => void
     onPause: () => void
+    isRunning: boolean
+    nextWord:() => void
+    prevWord:() => void
 }
 
-const ControlButtons: React.FC<ControlButtonsProps> = ({ onPlay, onPause }) => {
+const ControlButtons: React.FC<ControlButtonsProps> = ({ onPlay, onPause,isRunning ,nextWord,prevWord}) => {
     const {styles : s}=useStyles()
     return (
         <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={onPause}>
-                <TabBarIcon name='stop' size={40} color={s.color} />
+              <TouchableOpacity onPress={prevWord}>
+                <TabBarIcon name='arrow-back' size={40} color={s.color} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={onPlay}>
+            {
+                isRunning ?  <TouchableOpacity onPress={onPause}>
+                <TabBarIcon name='stop' size={40} color={s.color} />
+            </TouchableOpacity>:    <TouchableOpacity onPress={onPlay}>
                 <TabBarIcon name='play' size={40} color={s.color} />
+            </TouchableOpacity>
+            }
+          
+            <TouchableOpacity onPress={nextWord}>
+                <TabBarIcon name='arrow-forward' size={40} color={s.color} />
             </TouchableOpacity>
         </View>
     )
