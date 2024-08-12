@@ -1,3 +1,5 @@
+<h2>Disponivel pra dowload na playstore </h2>
+<button href='https://play.google.com/store/apps/details?id=com.dhmes.lermo'>Baixar app</button>
 <p align="center">
   <img src="https://firebasestorage.googleapis.com/v0/b/fir-api-a4069.appspot.com/o/WhatsApp%20Image%202024-07-27%20at%2018.01.03.jpeg?alt=media&token=2588f9cd-12d8-412b-b957-b2533cde99c0" alt="" width="200"/>
   <img src="https://firebasestorage.googleapis.com/v0/b/fir-api-a4069.appspot.com/o/WhatsApp%20Image%202024-07-27%20at%2020.15.34.jpeg?alt=media&token=21c0ffb9-ee33-4b27-8cc1-2e80398e01c8" alt="" width="200"/>
